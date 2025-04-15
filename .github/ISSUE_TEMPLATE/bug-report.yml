@@ -1,0 +1,33 @@
+name: "🐞 Bug Report"
+description: "Plantilla para reportar errores o bugs en el sistema"
+labels: [bug]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Descripción del problema
+
+        Explica de forma clara y concisa qué error o problema encontraste.
+
+        **Pasos para reproducir el problema:**
+        1. 
+        2. 
+        3. 
+
+        **Comportamiento esperado:**
+        - Describe cómo debería funcionar el sistema si no hubiera un error.
+
+        **Comportamiento actual:**
+        - Explica qué sucede actualmente (incluye capturas de pantalla o detalles técnicos si es necesario).
+
+  - type: checkboxes
+    attributes:
+      label: ✅ Checklist
+      description: Marca los puntos relevantes que apliquen a este error.
+      options:
+        - label: El error ocurre en la versión más reciente del sistema.
+        - label: Puedo reproducir el error de forma consistente.
+        - label: Se incluye suficiente información para que se pueda reproducir el error.
+        - label: Se incluyen detalles técnicos (logs, consola, etc.) si es necesario.

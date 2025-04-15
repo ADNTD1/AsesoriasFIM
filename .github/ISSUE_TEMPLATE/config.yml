@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Carlos Urias
+    url: mailto:carlos@carlosurias.com
+    about: Si tienes algún problema, por favor envia un correo con toda la información
+
+# Plantillas de Issues
+issue_templates:
+  - name: "🚀 New Feature Request"
+    description: "Plantilla para solicitudes de nuevas funcionalidades."
+    filename: "feature-request.yml"
+  - name: "🐞 Bug Report"
+    description: "Plantilla para reportar errores o bugs en el sistema."
+    filename: "bug-report.yml"
+  - name: "📋 Documentation"
+    description: "Plantilla para solicitudes o mejoras en la documentación."
+    filename: "documentation-request.yml"

@@ -1,14 +1,26 @@
-// src/App.jsx
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import "./styles/main.css";
+import routes from "./routes/routes";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      {/* Más rutas si querés */}
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        {routes.map(({ path, element, children }, index) => (
+          <Route key={index} path={path} element={element}>
+            {children &&
+              children.map((child, childIndex) => (
+                <Route
+                  key={childIndex}
+                  path={child.path}
+                  element={child.element}
+                  index={child.index}
+                />
+              ))}
+          </Route>
+        ))}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

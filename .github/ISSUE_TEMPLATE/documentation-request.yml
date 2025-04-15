@@ -1,0 +1,28 @@
+name: "📋 Documentation"
+description: "Plantilla para solicitudes o mejoras en la documentación"
+labels: [documentation]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📝 Descripción de la mejora de la documentación
+
+        Describe de forma clara qué parte de la documentación necesita ser mejorada o ampliada.
+
+        **¿Por qué se necesita esta mejora?**
+        - Explica por qué es importante actualizar o mejorar la documentación.
+
+        **¿Qué información debería ser añadida o modificada?**
+        - Detalla qué aspectos específicos de la documentación necesitan ser modificados o agregados.
+
+  - type: checkboxes
+    attributes:
+      label: ✅ Checklist
+      description: Marca los puntos que sean relevantes para esta solicitud de documentación.
+      options:
+        - label: La documentación está desactualizada o no es clara.
+        - label: Se necesita añadir ejemplos o casos de uso.
+        - label: Se deben corregir errores tipográficos o gramaticales.
+        - label: Se debe agregar más información técnica detallada.

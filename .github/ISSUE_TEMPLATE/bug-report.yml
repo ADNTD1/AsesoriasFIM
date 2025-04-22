@@ -1,0 +1,56 @@
+name: "🐞 Bug Report"
+description: "Plantilla para reportar errores o bugs en el sistema"
+labels: [bug]
+assignees: []
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "📝 Descripción del problema"
+      description: "Explica de forma clara y concisa qué error o problema encontraste."
+      value: "Escribe aquí la descripción del problema..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "🔄 Pasos para reproducir el problema"
+      description: "Describe los pasos para reproducir el problema."
+      value: "1. \n2. \n3."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "🔮 Comportamiento esperado"
+      description: "Especifica cómo debería funcionar el sistema si no hubiera error."
+      value: "Escribe el comportamiento esperado aquí..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "⚠️ Comportamiento actual"
+      description: "Especifica qué sucede actualmente. Si es posible, incluye capturas de pantalla o detalles técnicos."
+      value: "Escribe el comportamiento actual aquí..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "✅ Checklist"
+      description: "Marca los puntos relevantes que apliquen a este error."
+      options:
+        - label: "El error ocurre en la versión más reciente del sistema."
+          required: true
+        - label: "Puedo reproducir el error de forma consistente."
+          required: true
+        - label: "Se incluye suficiente información para que se pueda reproducir el error."
+          required: true
+        - label: "Se incluyen detalles técnicos (logs, consola, etc.) si es necesario."
+          required: false

@@ -1,0 +1,68 @@
+name: 🚀 New Feature Request
+description: Plantilla para solicitudes de nuevas funcionalidades
+title: "[FEATURE] "
+labels: [enhancement]
+assignees: []
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "📝 Descripción"
+      description: "Describe de forma clara y concisa qué funcionalidad necesitas implementar. Si es necesario, incluye cualquier detalle de contexto relevante para entender la tarea."
+      value: "Escribe aquí la descripción de la nueva funcionalidad..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: code_fragment
+    attributes:
+      label: "Fragmento relevante del código (si aplica)"
+      description: "Describe lo que hay que implementar o lo que falta."
+      value: "// TODO: Describe lo que hay que implementar o lo que falta."
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "✅ Comportamiento esperado"
+      description: "Describe el comportamiento esperado de la funcionalidad que se está implementando."
+      value: "Escribe aquí cómo debe funcionar esta funcionalidad..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: "💻 Entorno"
+      description: "Detalles del entorno donde se implementará la funcionalidad."
+      value: "Componente(s): \nFramework o Biblioteca: \nDependencias relevantes:"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_resources
+    attributes:
+      label: "📎 Recursos adicionales"
+      description: "Incluye enlaces a documentación, diagramas, enlaces relevantes o cualquier otro recurso que pueda ayudar a implementar esta funcionalidad."
+      value: "Escribe aquí los recursos adicionales..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "✅ Checklist"
+      description: "Marca cada punto una vez completado."
+      options:
+        - label: "Se ha implementado la funcionalidad requerida."
+          required: true
+        - label: "Se han cubierto todos los casos de uso esperados."
+          required: true
+        - label: "Se han manejado los errores correctamente."
+          required: true
+        - label: "Se ha probado la funcionalidad en el entorno adecuado."
+          required: true
+        - label: "La funcionalidad está documentada (si aplica)."
+          required: false

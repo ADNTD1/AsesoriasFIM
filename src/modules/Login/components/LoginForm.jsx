@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import LoginButton from "./LoginButton";
 
 function LoginForm() {
@@ -14,6 +15,7 @@ function LoginForm() {
   const onAccountVerify = () => {
     const isValid = /^\d{8}$/.test(accountNumber);
     setAccountError(!isValid);
+
   };
 
   const onPasswordChange = (e) => {
@@ -49,6 +51,7 @@ function LoginForm() {
           {accountError && (
             <p className="text-red-500 text-sm mt-1">
               El número de cuenta debe tener exactamente 8 dígitos.
+
             </p>
           )}
         </div>
@@ -60,11 +63,11 @@ function LoginForm() {
           <input
             type="password"
             onChange={onPasswordChange}
+
             className="block w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             placeholder="••••••••"
           />
         </div>
-
         <div className="text-right">
           <p className="text-sm text-blue-600 hover:underline cursor-pointer">
             ¿Olvidaste tu NIP?
@@ -85,3 +88,5 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+

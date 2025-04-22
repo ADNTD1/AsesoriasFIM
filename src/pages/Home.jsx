@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { UserGroupIcon, ClockIcon } from "@heroicons/react/outline";
 import Navbar from "../components/Navbar";
-
+import Lottie  from "react-lottie"
 import HomeAnim from "../components/HomeAnim";
 
 const Home = () => {

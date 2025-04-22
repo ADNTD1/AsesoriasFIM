@@ -1,7 +1,6 @@
 import Home from "../pages/Home";
 import Login from "../modules/Login/pages/Login";
 import Menu from "../modules/Login/pages/Menu";
-
 const routes = [
   {
     path: "/",

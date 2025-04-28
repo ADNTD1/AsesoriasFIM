@@ -1,0 +1,63 @@
+/* Login.css */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  
+  .input-group .icon {
+    margin: 0 10px;
+    color: #888;
+  }
+  
+  .input-group input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+  }
+  
+  .input-group input::placeholder {
+    color: #aaa;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2e58e1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: #1a35ce;
+  }
+  
+  .message {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+  }

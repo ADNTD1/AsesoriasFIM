@@ -1,6 +1,7 @@
 import Home from "../pages/Home";
-import Login from "../modules/Login/pages/Login";
-import Menu from "../modules/Login/pages/Menu";
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard"; // Asegúrate de tener este componente
+
 const routes = [
   {
     path: "/",
@@ -11,9 +12,9 @@ const routes = [
     element: <Login />,
   },
   {
-    path: "/menu",
-    element: <Menu/>
-  }
+    path: "/dashboard",
+    element: <Dashboard />, // Nueva ruta protegida
+  },
 ];
 
 export default routes;

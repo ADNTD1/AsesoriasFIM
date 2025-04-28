@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import './Firebase/client'
 import routes from "./routes/routes";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

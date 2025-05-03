@@ -1,8 +1,20 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation(); // Para saber qué ruta está activa
+  const navigate = useNavigate(); // Usamos useNavigate para manejar la navegación
+
+  // Función para cerrar sesión
+  const handleLogout = () => {
+    // Eliminar los datos del usuario (por ejemplo, desde localStorage)
+    localStorage.removeItem("usuario");
+    // Redirigir a la página de inicio (o login)
+    navigate("/login");
+  };
+
+  // Comprobar si estamos en el dashboard o en una ruta relacionada
+  const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
     <nav style={styles.navbar}>
@@ -14,28 +26,44 @@ const Navbar = () => {
 
         {/* Enlaces de navegación */}
         <ul style={styles.navList}>
-          <li style={styles.navItem}>
-            <Link
-              to="/"
-              style={{
-                ...styles.navLink,
-                ...(location.pathname === "/" ? styles.activeNavLink : {}),
-              }}
-            >
-              Inicio
-            </Link>
-          </li>
-          <li style={styles.navItem}>
-            <Link
-              to="/login"
-              style={{
-                ...styles.navLink,
-                ...(location.pathname === "/login" ? styles.activeNavLink : {}),
-              }}
-            >
-              Acceder
-            </Link>
-          </li>
+          {/* Mostrar "Inicio" solo si no estamos en el dashboard */}
+          {!isDashboard && (
+            <li style={styles.navItem}>
+              <Link
+                to="/"
+                style={{
+                  ...styles.navLink,
+                  ...(location.pathname === "/" ? styles.activeNavLink : {}),
+                }}
+              >
+                Inicio
+              </Link>
+            </li>
+          )}
+
+          {/* Mostrar "Acceder" solo si no estamos en el dashboard */}
+          {!isDashboard && (
+            <li style={styles.navItem}>
+              <Link
+                to="/login"
+                style={{
+                  ...styles.navLink,
+                  ...(location.pathname === "/login" ? styles.activeNavLink : {}),
+                }}
+              >
+                Acceder
+              </Link>
+            </li>
+          )}
+
+          {/* Mostrar el botón de "Cerrar Sesión" solo si el usuario está logueado */}
+          {localStorage.getItem("usuario") && (
+            <li style={styles.navItem}>
+              <button onClick={handleLogout} style={styles.navLink}>
+                Cerrar Sesión
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

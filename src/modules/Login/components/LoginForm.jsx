@@ -27,6 +27,7 @@ function LoginConNIP() {
         setError("Número de cuenta o NIP incorrecto");
       } else {
         console.log("Inicio de sesión exitoso:", data);
+        localStorage.setItem("usuario", JSON.stringify(data));
         navigate("/dashboard");
       }
     } catch (err) {

@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { auth, db } from "../Firebase/client";
-import { doc, getDoc } from "firebase/firestore";
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("Inicio");
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    const fetchUserName = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const docRef = doc(db, "usuarios", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const fullName = `${data.nombres} ${data.Apellido1} ${data.Apellido2}`;
-          setUserName(fullName);
-        }
-      }
-    };
-
-    fetchUserName();
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      const fullName = `${usuario.nombre} ${usuario.ap1} ${usuario.ap2}`;
+      setUserName(fullName);
+    }
   }, []);
 
   const sidebarStyle = {
@@ -41,22 +31,24 @@ const Sidebar = () => {
     backgroundColor: "#6c63ff",
     color: "white",
     fontSize: "24px",
-    width: "40px",
-    height: "40px",
+    width: "40px",  // Tamaño fijo
+    height: "40px", // Tamaño fijo
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "50%",
+    flexShrink: 0,  // Evitar que el logo se reduzca
   };
 
   const titleStyle = {
     fontSize: "20px",
     fontWeight: "bold",
     marginLeft: "10px",
-    color: "#495057", // Puedes ajustar el color aquí si quieres
+    color: "#495057",
+    wordWrap: "break-word", // Permitir que el nombre se ajuste en caso de ser largo
+    whiteSpace: "normal", // Permitir que el nombre ocupe múltiples líneas si es necesario
   };
 
-  // Estilo para el nombre de usuario
   const usernameStyle = {
     fontSize: "16px",
     color: "#495057",
@@ -105,14 +97,8 @@ const Sidebar = () => {
     <div style={sidebarStyle}>
       <div style={headerStyle}>
         <div style={logoStyle}>G</div>
-        {/* Reemplazamos GOODFOOD por el nombre del usuario */}
         <div style={titleStyle}>{userName || "Cargando..."}</div>
       </div>
-      {userName && (
-        <p style={usernameStyle}>
-          Hola, <strong>{userName}</strong>
-        </p>
-      )}
       <div>
         <p style={sectionTitleStyle}>MENÚ</p>
         <ul style={ulStyle}>

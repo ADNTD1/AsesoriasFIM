@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../components/card";
 import NoticiasContainer from "../components/noticiasContainer"; // Importa el componente
 
 const Dashboard = () => {
-  
+  // Estado para almacenar el nombre del usuario
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      const fullName = `${usuario.nombre}`;
+      setUserName(fullName);
+    }
+  }, []);
 
   const mainContentStyle = {
     display: "flex",
@@ -14,26 +24,6 @@ const Dashboard = () => {
     flex: 1,
     padding: "20px",
     overflowY: "auto",
-  };
-
-  const sectionStyle = {
-    marginTop: "20px",
-    backgroundColor: "#f9f9f9",
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
-  };
-
-  const sectionTitleStyle = {
-    fontSize: "1.5rem",
-    color: "#1D3C6D",
-    marginBottom: "20px",
-    fontWeight: "600",
-  };
-
-  const separatorStyle = {
-    borderTop: "1px solid #ddd",
-    margin: "20px 0",
   };
 
   const welcomeStyle = {
@@ -58,38 +48,35 @@ const Dashboard = () => {
   };
 
   return (
-    
-      <div style={mainContentStyle}>
-        <div style={contentStyle}>
-          <div style={welcomeStyle}>
-            <h1 style={welcomeTitleStyle}>Bienvenido</h1>
-            <p style={welcomeTextStyle}>
-              Aquí podrás encontrar todas las herramientas y recursos necesarios para gestionar tu contenido de manera eficiente. Explora las últimas actualizaciones, noticias y consulta la documentación para obtener más información.
-            </p>
-          </div>
-
-          <div style={separatorStyle}></div>
-
-          <div style={sectionStyle}>
-            {/* Noticias */}
-            <NoticiasContainer />
-          </div>
-
-          <div style={separatorStyle}></div>
-
-          {/* Documentación */}
-          <div style={sectionStyle}>
-            <h2 style={sectionTitleStyle}>Documentación</h2>
-            <p style={{ fontSize: "1rem", color: "#555", fontFamily: "Roboto, sans-serif" }}>
-              En esta sección podrás encontrar libros y recursos académicos de las diferentes carreras que ofrece la Facultad de Ingeniería Mochis. Es un espacio dedicado al aprendizaje y apoyo estudiantil.
-            </p>
-          </div>
-
-          <div style={separatorStyle}></div>
-
+    <div style={mainContentStyle}>
+      <div style={contentStyle}>
+        <div style={welcomeStyle}>
+        
+          <h1 style={welcomeTitleStyle}>Bienvenido, {userName}</h1>
+          <p style={welcomeTextStyle}>
+            Aquí podrás encontrar todas las herramientas y recursos necesarios para gestionar tu contenido de manera eficiente. Explora las últimas actualizaciones, noticias y consulta la documentación para obtener más información.
+          </p>
         </div>
+
+        <div style={{ borderTop: "1px solid #ddd", margin: "20px 0" }}></div>
+
+        <div style={{ marginTop: "20px", backgroundColor: "#f9f9f9", padding: "30px", borderRadius: "10px", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
+          <NoticiasContainer />
+        </div>
+
+        <div style={{ borderTop: "1px solid #ddd", margin: "20px 0" }}></div>
+
+        <div style={{ marginTop: "20px", backgroundColor: "#f9f9f9", padding: "30px", borderRadius: "10px", boxShadow: "0 2px 10px rgba(0,0,0,0.05)" }}>
+          <h2 style={{ fontSize: "1.5rem", color: "#1D3C6D", marginBottom: "20px", fontWeight: "600" }}>Documentación</h2>
+          <p style={{ fontSize: "1rem", color: "#555", fontFamily: "Roboto, sans-serif" }}>
+            En esta sección podrás encontrar libros y recursos académicos de las diferentes carreras que ofrece la Facultad de Ingeniería Mochis. Es un espacio dedicado al aprendizaje y apoyo estudiantil.
+          </p>
+        </div>
+
+        <div style={{ borderTop: "1px solid #ddd", margin: "20px 0" }}></div>
+
       </div>
-    
+    </div>
   );
 };
 

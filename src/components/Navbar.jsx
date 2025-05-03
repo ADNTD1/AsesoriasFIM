@@ -2,19 +2,17 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const location = useLocation(); // Para saber qué ruta está activa
-  const navigate = useNavigate(); // Usamos useNavigate para manejar la navegación
+  const location = useLocation(); // Para detectar la ruta activa
+  const navigate = useNavigate(); // Para manejar la navegación
+
+  // Comprobar si el usuario ha iniciado sesión
+  const estaAutenticado = localStorage.getItem("usuario") !== null;
 
   // Función para cerrar sesión
   const handleLogout = () => {
-    // Eliminar los datos del usuario (por ejemplo, desde localStorage)
-    localStorage.removeItem("usuario");
-    // Redirigir a la página de inicio (o login)
-    navigate("/login");
+    localStorage.removeItem("usuario"); // Eliminar datos de sesión
+    navigate("/login"); // Redirigir a la página de inicio de sesión
   };
-
-  // Comprobar si estamos en el dashboard, perfil o cualquier otra ruta que debería mostrar solo "Cerrar Sesión"
-  const isDashboardOrProfile = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/perfil");
 
   return (
     <nav style={styles.navbar}>
@@ -26,46 +24,38 @@ const Navbar = () => {
 
         {/* Enlaces de navegación */}
         <ul style={styles.navList}>
-          {/* Mostrar "Inicio" solo si no estamos en el dashboard o perfil */}
-          {!isDashboardOrProfile && (
-            <li style={styles.navItem}>
-              <Link
-                to="/"
-                style={{
-                  ...styles.navLink,
-                  ...(location.pathname === "/" ? styles.activeNavLink : {}),
-                }}
-                aria-label="Ir a la página de inicio"
-              >
-                Inicio
-              </Link>
-            </li>
+          {/* Mostrar "Inicio" y "Acceder" solo si el usuario NO está autenticado */}
+          {!estaAutenticado && (
+            <>
+              <li style={styles.navItem}>
+                <Link
+                  to="/"
+                  style={{
+                    ...styles.navLink,
+                    ...(location.pathname === "/" ? styles.activeNavLink : {}),
+                  }}
+                >
+                  Inicio
+                </Link>
+              </li>
+              <li style={styles.navItem}>
+                <Link
+                  to="/login"
+                  style={{
+                    ...styles.navLink,
+                    ...(location.pathname === "/login" ? styles.activeNavLink : {}),
+                  }}
+                >
+                  Acceder
+                </Link>
+              </li>
+            </>
           )}
 
-          {/* Mostrar "Acceder" solo si no estamos en el dashboard o perfil */}
-          {!isDashboardOrProfile && (
+          {/* Mostrar "Cerrar Sesión" solo si el usuario está autenticado */}
+          {estaAutenticado && (
             <li style={styles.navItem}>
-              <Link
-                to="/login"
-                style={{
-                  ...styles.navLink,
-                  ...(location.pathname === "/login" ? styles.activeNavLink : {}),
-                }}
-                aria-label="Acceder a la plataforma"
-              >
-                Acceder
-              </Link>
-            </li>
-          )}
-
-          {/* Mostrar el botón de "Cerrar Sesión" solo si el usuario está logueado */}
-          {localStorage.getItem("usuario") && (
-            <li style={styles.navItem}>
-              <button
-                onClick={handleLogout}
-                style={styles.navLink}
-                aria-label="Cerrar sesión"
-              >
+              <button onClick={handleLogout} style={styles.navLink}>
                 Cerrar Sesión
               </button>
             </li>
@@ -76,15 +66,15 @@ const Navbar = () => {
   );
 };
 
-// Estilos modernos y minimalistas
+// 🎨 **Estilos**
 const styles = {
   navbar: {
-    backgroundColor: "#ffffff", // Fondo blanco para un diseño limpio
+    backgroundColor: "#ffffff", // Fondo blanco limpio
     padding: "16px 0",
     position: "sticky",
     top: "0",
     zIndex: "1000",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)", // Sombra muy sutil
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)", // Sombra suave
     borderBottom: "1px solid #eaeaea",
   },
   container: {
@@ -120,6 +110,9 @@ const styles = {
     fontWeight: "500",
     padding: "6px 8px",
     transition: "color 0.3s ease",
+    border: "none",
+    backgroundColor: "transparent",
+    cursor: "pointer",
   },
   activeNavLink: {
     color: "#1D3C6D",

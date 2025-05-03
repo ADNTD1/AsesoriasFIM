@@ -1,6 +1,6 @@
 // src/components/Card.jsx
 import React from "react";
-import "../styles/Card.css";
+import "../styles/card.css";
 
 const Card = ({ title, content, date }) => {
   return (

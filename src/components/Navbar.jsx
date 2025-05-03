@@ -13,8 +13,8 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // Comprobar si estamos en el dashboard o en una ruta relacionada
-  const isDashboard = location.pathname.startsWith("/dashboard");
+  // Comprobar si estamos en el dashboard, perfil o cualquier otra ruta que debería mostrar solo "Cerrar Sesión"
+  const isDashboardOrProfile = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/perfil");
 
   return (
     <nav style={styles.navbar}>
@@ -26,8 +26,8 @@ const Navbar = () => {
 
         {/* Enlaces de navegación */}
         <ul style={styles.navList}>
-          {/* Mostrar "Inicio" solo si no estamos en el dashboard */}
-          {!isDashboard && (
+          {/* Mostrar "Inicio" solo si no estamos en el dashboard o perfil */}
+          {!isDashboardOrProfile && (
             <li style={styles.navItem}>
               <Link
                 to="/"
@@ -35,14 +35,15 @@ const Navbar = () => {
                   ...styles.navLink,
                   ...(location.pathname === "/" ? styles.activeNavLink : {}),
                 }}
+                aria-label="Ir a la página de inicio"
               >
                 Inicio
               </Link>
             </li>
           )}
 
-          {/* Mostrar "Acceder" solo si no estamos en el dashboard */}
-          {!isDashboard && (
+          {/* Mostrar "Acceder" solo si no estamos en el dashboard o perfil */}
+          {!isDashboardOrProfile && (
             <li style={styles.navItem}>
               <Link
                 to="/login"
@@ -50,6 +51,7 @@ const Navbar = () => {
                   ...styles.navLink,
                   ...(location.pathname === "/login" ? styles.activeNavLink : {}),
                 }}
+                aria-label="Acceder a la plataforma"
               >
                 Acceder
               </Link>
@@ -59,7 +61,11 @@ const Navbar = () => {
           {/* Mostrar el botón de "Cerrar Sesión" solo si el usuario está logueado */}
           {localStorage.getItem("usuario") && (
             <li style={styles.navItem}>
-              <button onClick={handleLogout} style={styles.navLink}>
+              <button
+                onClick={handleLogout}
+                style={styles.navLink}
+                aria-label="Cerrar sesión"
+              >
                 Cerrar Sesión
               </button>
             </li>

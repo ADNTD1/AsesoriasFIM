@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("Inicio");
   const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem("usuario");
@@ -28,33 +30,25 @@ const Sidebar = () => {
   };
 
   const logoStyle = {
-    backgroundColor: "#1D3C6D", // Cambiado al color azul de la navbar
+    backgroundColor: "#1D3C6D",
     color: "white",
     fontSize: "24px",
-    width: "40px",  // Tamaño fijo
-    height: "40px", // Tamaño fijo
+    width: "40px",
+    height: "40px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: "50%",
-    flexShrink: 0,  // Evitar que el logo se reduzca
+    flexShrink: 0,
   };
-  
 
   const titleStyle = {
     fontSize: "20px",
     fontWeight: "bold",
     marginLeft: "10px",
     color: "#495057",
-    wordWrap: "break-word", // Permitir que el nombre se ajuste en caso de ser largo
-    whiteSpace: "normal", // Permitir que el nombre ocupe múltiples líneas si es necesario
-  };
-
-  const usernameStyle = {
-    fontSize: "16px",
-    color: "#495057",
-    marginBottom: "20px",
-    fontWeight: "normal",
+    wordWrap: "break-word",
+    whiteSpace: "normal",
   };
 
   const sectionTitleStyle = {
@@ -94,6 +88,14 @@ const Sidebar = () => {
     "Cerrar Sesión",
   ];
 
+  const handleItemClick = (item) => {
+    setActiveItem(item);
+    if (item === "Perfil") {
+      navigate("/perfil");
+    }
+    // Puedes agregar más redirecciones aquí según lo necesites
+  };
+
   return (
     <div style={sidebarStyle}>
       <div style={headerStyle}>
@@ -107,7 +109,7 @@ const Sidebar = () => {
             <li
               key={item}
               style={activeItem === item ? activeLiStyle : liStyle}
-              onClick={() => setActiveItem(item)}
+              onClick={() => handleItemClick(item)}
             >
               {item}
             </li>

@@ -1,6 +1,7 @@
 import Home from "../pages/Home";
 import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard"; // Asegúrate de tener este componente
+import Dashboard from "../pages/Dashboard";
+import Perfil from "../pages/Perfil"; // Agrega esta línea
 
 const routes = [
   {
@@ -13,7 +14,11 @@ const routes = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />, // Nueva ruta protegida
+    element: <Dashboard />,
+  },
+  {
+    path: "/perfil",          // ← Nueva ruta
+    element: <Perfil />,
   },
 ];
 

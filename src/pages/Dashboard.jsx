@@ -26,6 +26,17 @@ const Dashboard = () => {
 
   const sectionStyle = {
     marginTop: "20px",
+    backgroundColor: "#f9f9f9",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  };
+
+  const sectionTitleStyle = {
+    fontSize: "1.5rem",
+    color: "#1D3C6D",
+    marginBottom: "20px",
+    fontWeight: "600",
   };
 
   const separatorStyle = {
@@ -36,13 +47,22 @@ const Dashboard = () => {
   const welcomeStyle = {
     textAlign: "center",
     marginTop: "50px",
+  };
+
+  const welcomeTitleStyle = {
+    fontSize: "1.8rem",
+    color: "#1D3C6D",
+    fontWeight: "600",
     fontFamily: "Poppins, sans-serif",
+    marginBottom: "10px",
   };
 
   const welcomeTextStyle = {
     fontFamily: "Roboto, sans-serif",
     color: "#555",
-    fontSize: "1.1rem",
+    fontSize: "1.2rem",
+    maxWidth: "800px",
+    margin: "0 auto",
   };
 
   return (
@@ -52,7 +72,7 @@ const Dashboard = () => {
         <Sidebar />
         <div style={contentStyle}>
           <div style={welcomeStyle}>
-            <h1>Bienvenido</h1>
+            <h1 style={welcomeTitleStyle}>Bienvenido</h1>
             <p style={welcomeTextStyle}>
               Aquí podrás encontrar todas las herramientas y recursos necesarios para gestionar tu contenido de manera eficiente. Explora las últimas actualizaciones, noticias y consulta la documentación para obtener más información.
             </p>
@@ -61,14 +81,22 @@ const Dashboard = () => {
           <div style={separatorStyle}></div>
 
           <div style={sectionStyle}>
-            
-            {/* Aquí se renderiza el componente de noticias */}
+            {/* Noticias */}
             <NoticiasContainer />
           </div>
 
           <div style={separatorStyle}></div>
 
-          <Card />
+          {/* Documentación */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>Documentación</h2>
+            <p style={{ fontSize: "1rem", color: "#555", fontFamily: "Roboto, sans-serif" }}>
+              En esta sección podrás encontrar libros y recursos académicos de las diferentes carreras que ofrece la Facultad de Ingeniería Mochis. Es un espacio dedicado al aprendizaje y apoyo estudiantil.
+            </p>
+          </div>
+
+          <div style={separatorStyle}></div>
+
         </div>
       </div>
     </div>

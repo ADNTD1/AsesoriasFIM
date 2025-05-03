@@ -28,7 +28,7 @@ const Sidebar = () => {
   };
 
   const logoStyle = {
-    backgroundColor: "#6c63ff",
+    backgroundColor: "#1D3C6D", // Cambiado al color azul de la navbar
     color: "white",
     fontSize: "24px",
     width: "40px",  // Tamaño fijo
@@ -39,6 +39,7 @@ const Sidebar = () => {
     borderRadius: "50%",
     flexShrink: 0,  // Evitar que el logo se reduzca
   };
+  
 
   const titleStyle = {
     fontSize: "20px",

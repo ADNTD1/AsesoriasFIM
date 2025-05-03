@@ -29,7 +29,8 @@
     "react-lottie": "^1.2.10",
     "react-router-dom": "^7.5.0",
     "router-dom": "^3.0.3",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

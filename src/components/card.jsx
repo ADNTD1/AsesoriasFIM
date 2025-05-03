@@ -1,14 +1,18 @@
 import React from "react";
 import "../styles/Card.css";
 
-const Card = () => {
+const Card = ({ id, createdAt, nombre, carrera, materia }) => {
   return (
     <div className="card">
-      <h3 className="card__title">Title</h3>
+      <h3 className="card__title">Solicitud #{id}</h3>
       <p className="card__content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        <strong>Estudiante:</strong> {nombre} <br />
+        <strong>Carrera:</strong> {carrera} <br />
+        <strong>Materia:</strong> {materia}
       </p>
-      <div className="card__date">April 15, 2022</div>
+      <div className="card__date">
+        {new Date(createdAt).toLocaleDateString("es-MX")}
+      </div>
       <div className="card__arrow">
         <svg
           xmlns="http://www.w3.org/2000/svg"

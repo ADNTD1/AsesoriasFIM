@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Card from "./card";
+
 const BuscarAsesorias = () => {
 const [query, setQuery] = useState("");
 
@@ -14,6 +16,7 @@ const contentStyle = {
     backgroundColor: "#f0f2f5",
     borderRadius: "15px", // Esquinas redondeadas
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)", // Sombra elegante
+    marginBottom: "50px"
 };
 
 return (
@@ -40,7 +43,7 @@ return (
             padding: "8px 16px",
             borderRadius: "4px",
             border: "none",
-            backgroundColor: "#6c63ff",
+            backgroundColor: "#1D3C6D",
             color: "white",
             cursor: "pointer",
         }}
@@ -49,6 +52,7 @@ return (
         </button>
     </form>
     </div>
+      <Card />
     </div>
 );
 };

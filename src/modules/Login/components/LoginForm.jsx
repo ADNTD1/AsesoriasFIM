@@ -1,70 +1,126 @@
-// Login.jsx
-import { useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../../Firebase/client";
-import "./Login.css"; // Archivo para los estilos
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom"; // ✅ Importación para redirección
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../server/Supabase/supabaseClient";
 
-function Login() {
-  const [NIP, setNIP] = useState("");
-  const [Ncuenta, setNcuenta] = useState("");
-  const [mensaje, setMensaje] = useState("");
-  const navigate = useNavigate(); // ✅ Hook de redirección
+function LoginConNIP() {
+  const [numeroCuenta, setNumeroCuenta] = useState("");
+  const [nip, setNip] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
-      const usuariosRef = collection(db, "usuarios");
-      const q = query(
-        usuariosRef,
-        where("NIP", "==", NIP),
-        where("Ncuenta", "==", Ncuenta)
-      );
-      const querySnapshot = await getDocs(q);
+      const { data, error } = await supabase
+        .from("Usuario")
+        .select("*")
+        .eq("nocuenta", numeroCuenta)
+        .eq("nip", nip)
+        .single();
 
-      if (!querySnapshot.empty) {
-        setMensaje("Inicio de sesión exitoso ✅");
-        // ✅ Redirección después del login exitoso
-        setTimeout(() => {
-          navigate("/dashboard"); // Cambia la ruta si lo necesitas
-        }, 1000);
+      if (error || !data) {
+        setError("Número de cuenta o NIP incorrecto");
       } else {
-        setMensaje("Credenciales incorrectas ❌");
+        console.log("Inicio de sesión exitoso:", data);
+        navigate("/dashboard");
       }
-    } catch (error) {
-      console.error("Error al intentar iniciar sesión:", error);
-      setMensaje("Ocurrió un error al iniciar sesión ❌");
+    } catch (err) {
+      console.error("Error al intentar iniciar sesión:", err);
+      setError("Ocurrió un error inesperado.");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Estilos en línea para mejorar la apariencia
+  const containerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    backgroundColor: "#f4f4f4",
+  };
+
+  const formStyle = {
+    backgroundColor: "#fff",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+    width: "300px",
+    textAlign: "center",
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "10px",
+    margin: "10px 0",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    fontSize: "16px",
+  };
+
+  const buttonStyle = {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "16px",
+  };
+
+  const buttonDisabledStyle = {
+    ...buttonStyle,
+    backgroundColor: "#6c757d",
+    cursor: "not-allowed",
+  };
+
   return (
-    <div className="login-container">
-      <h2>Iniciar Sesión</h2>
-      <div className="input-group">
-        <FontAwesomeIcon icon={faUser} className="icon" />
-        <input
-          type="text"
-          placeholder="Número de cuenta"
-          value={Ncuenta}
-          onChange={(e) => setNcuenta(e.target.value)}
-        />
+    <div style={containerStyle}>
+      <div style={formStyle}>
+        <h2>Iniciar Sesión</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="numeroCuenta">Número de Cuenta:</label>
+            <input
+              type="text"
+              id="numeroCuenta"
+              value={numeroCuenta}
+              onChange={(e) => setNumeroCuenta(e.target.value)}
+              required
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label htmlFor="nip">NIP:</label>
+            <input
+              type="password"
+              id="nip"
+              value={nip}
+              onChange={(e) => setNip(e.target.value)}
+              required
+              style={inputStyle}
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            style={loading ? buttonDisabledStyle : buttonStyle}
+          >
+            {loading ? "Verificando..." : "Iniciar Sesión"}
+          </button>
+        </form>
       </div>
-      <div className="input-group">
-        <FontAwesomeIcon icon={faLock} className="icon" />
-        <input
-          type="password"
-          placeholder="NIP"
-          value={NIP}
-          onChange={(e) => setNIP(e.target.value)}
-        />
-      </div>
-      <button onClick={handleLogin} className="login-button">
-        Ingresar
-      </button>
-      {mensaje && <p className="message">{mensaje}</p>}
     </div>
   );
 }
 
-export default Login;
+export default LoginConNIP;

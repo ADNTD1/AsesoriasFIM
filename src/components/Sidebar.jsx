@@ -104,7 +104,7 @@ const Sidebar = () => {
   return (
     <div style={sidebarStyle}>
       <div style={headerStyle}>
-        <div style={logoStyle}>G</div>
+      <div style={logoStyle}>{userName ? userName.charAt(0).toUpperCase() : "?"}</div>
         <div style={titleStyle}>{userName || "Cargando..."}</div>
       </div>
       <div>

@@ -1,17 +1,9 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
 import Card from "../components/card";
 import NoticiasContainer from "../components/noticiasContainer"; // Importa el componente
 
 const Dashboard = () => {
-  const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    height: "100vh",
-    backgroundColor: "#f0f2f5",
-    fontFamily: "Poppins, sans-serif",
-  };
+  
 
   const mainContentStyle = {
     display: "flex",
@@ -66,10 +58,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={containerStyle}>
-      <Navbar />
+    
       <div style={mainContentStyle}>
-        <Sidebar />
         <div style={contentStyle}>
           <div style={welcomeStyle}>
             <h1 style={welcomeTitleStyle}>Bienvenido</h1>
@@ -99,7 +89,7 @@ const Dashboard = () => {
 
         </div>
       </div>
-    </div>
+    
   );
 };
 

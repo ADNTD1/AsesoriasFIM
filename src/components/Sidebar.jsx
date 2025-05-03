@@ -84,7 +84,7 @@ const Sidebar = () => {
     "Mensajes",
     "Notificaciones",
     "Perfil",
-    "Ayuda",
+    "Ayuda",  
     "Cerrar Sesión",
   ];
 
@@ -93,7 +93,12 @@ const Sidebar = () => {
     if (item === "Perfil") {
       navigate("/perfil");
     }
-    // Puedes agregar más redirecciones aquí según lo necesites
+    if (item === "Inicio"){
+      navigate("/Dashboard")
+    }
+    if (item === "Buscar Asesorías"){
+      navigate("/buscar-asesorias")
+    }
   };
 
   return (

@@ -38,55 +38,68 @@ function LoginConNIP() {
     }
   };
 
-  // Estilos en línea para mejorar la apariencia
+  // Estilos mejorados
   const containerStyle = {
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     height: "100vh",
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#f0f2f5",
   };
 
-  const formStyle = {
+  const loginBoxStyle = {
+    display: "flex",
+    flexDirection: "column",
     backgroundColor: "#fff",
-    padding: "30px",
+    padding: "50px",
     borderRadius: "10px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-    width: "300px",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+    width: "400px",
     textAlign: "center",
+  };
+
+  const titleStyle = {
+    fontSize: "24px",
+    fontWeight: "bold",
+    color: "#1D3C6D", // Azul
+    marginBottom: "20px",
   };
 
   const inputStyle = {
     width: "100%",
-    padding: "10px",
+    padding: "12px",
     margin: "10px 0",
     border: "1px solid #ccc",
     borderRadius: "5px",
     fontSize: "16px",
   };
 
-  const buttonStyle = {
-    width: "100%",
-    padding: "10px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
+  const forgotPasswordStyle = {
+    textAlign: "right",
+    fontSize: "14px",
+    color: "#007bff",
     cursor: "pointer",
-    fontSize: "16px",
+    marginBottom: "20px",
   };
 
-  const buttonDisabledStyle = {
-    ...buttonStyle,
-    backgroundColor: "#6c757d",
-    cursor: "not-allowed",
+  const buttonStyle = {
+    backgroundColor: "#1D3C6D",
+    color: "#fff",
+    padding: "14px 36px",
+    fontSize: "1.1rem",
+    fontWeight: "600",
+    border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+    width: "100%",
   };
 
   return (
     <div style={containerStyle}>
-      <div style={formStyle}>
-        <h2>Iniciar Sesión</h2>
+      <div style={loginBoxStyle}>
+        <h2 style={titleStyle}>Bienvenido</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>
@@ -98,6 +111,7 @@ function LoginConNIP() {
               onChange={(e) => setNumeroCuenta(e.target.value)}
               required
               style={inputStyle}
+              placeholder="Ingresa tu número de cuenta"
             />
           </div>
           <div>
@@ -109,13 +123,11 @@ function LoginConNIP() {
               onChange={(e) => setNip(e.target.value)}
               required
               style={inputStyle}
+              placeholder="Ingresa tu NIP"
             />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            style={loading ? buttonDisabledStyle : buttonStyle}
-          >
+          <div style={forgotPasswordStyle}>¿Olvidaste tu NIP?</div>
+          <button type="submit" style={buttonStyle} disabled={loading}>
             {loading ? "Verificando..." : "Iniciar Sesión"}
           </button>
         </form>

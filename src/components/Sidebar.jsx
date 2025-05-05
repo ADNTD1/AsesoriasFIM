@@ -85,21 +85,21 @@ const Sidebar = () => {
     "Notificaciones",
     "Perfil",
     "Ayuda",  
-    "Cerrar Sesión",
   ];
 
   const handleItemClick = (item) => {
     setActiveItem(item);
     if (item === "Perfil") {
       navigate("/perfil");
-    }
-    if (item === "Inicio"){
-      navigate("/Dashboard")
-    }
-    if (item === "Buscar Asesorías"){
-      navigate("/buscar-asesorias")
+    } else if (item === "Inicio") {
+      navigate("/Dashboard");
+    } else if (item === "Buscar Asesorías") {
+      navigate("/buscar-asesorias");
+    } else if (item === "Notificaciones") {
+      navigate("/notificaciones");
     }
   };
+  
 
   return (
     <div style={sidebarStyle}>

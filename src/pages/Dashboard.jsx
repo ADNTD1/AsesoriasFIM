@@ -54,7 +54,7 @@ const Dashboard = () => {
         
           <h1 style={welcomeTitleStyle}>Bienvenido, {userName}</h1>
           <p style={welcomeTextStyle}>
-            Aquí podrás encontrar todas las herramientas y recursos necesarios para gestionar tu contenido de manera eficiente. Explora las últimas actualizaciones, noticias y consulta la documentación para obtener más información.
+            Aquí encontraras recursos para mejorar tu aprendizaje asi como noticias relacionadas a tu universidad.
           </p>
         </div>
 

@@ -2,8 +2,10 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import BuscarAsesorias from "../components/buscarasesoria";
-import Perfil from "../pages/Perfil"; // Agrega esta línea
+import Perfil from "../pages/Perfil";
 import LayoutConSidebar from "../layouts/layoutconsidesbar";
+import Notificaciones from "../pages/notificaciones";
+
 const routes = [
   {
     path: "/",
@@ -28,7 +30,11 @@ const routes = [
       {
         path: "/perfil",          // ← Nueva ruta
         element: <Perfil />,
-  },
+      },
+      {
+        path: "/notificaciones",
+        element: <Notificaciones />
+      }
 ],
   },
 ];

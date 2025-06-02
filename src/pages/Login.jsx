@@ -30,7 +30,7 @@ function Login() {
       {mostrarAyuda && (
         <div
           className="fixed bottom-6 right-6 bg-white border border-gray-300 shadow-xl rounded-lg p-4 w-80 z-50
-                     opacity-30 hover:opacity-100 transition-opacity duration-500"
+              opacity-30 hover:opacity-100 transition-opacity duration-500"
         >
           <div className="flex justify-between items-start mb-2">
             <h2 className="text-lg font-semibold text-blue-900">¿Necesitas ayuda?</h2>

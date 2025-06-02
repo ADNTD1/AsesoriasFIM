@@ -5,7 +5,7 @@ import BuscarAsesorias from "../components/buscarasesoria";
 import Perfil from "../pages/Perfil";
 import LayoutConSidebar from "../layouts/layoutconsidesbar";
 import Notificaciones from "../pages/notificaciones";
-import Ayuda from "../pages/ayuda";
+import Mensajes from "../pages/chats";
 const routes = [
   {
     path: "/",
@@ -36,8 +36,8 @@ const routes = [
         element: <Notificaciones />
       },
       {
-        path: "/ayuda",
-        element: <Ayuda/>
+        path: "/chats",
+        element: <Mensajes/>
       }
 ],
   },

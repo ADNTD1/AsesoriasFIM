@@ -96,6 +96,8 @@ const Sidebar = () => {
       navigate("/buscar-asesorias");
     } else if (item === "Notificaciones") {
       navigate("/notificaciones");
+    }else if(item === "Mensajes"){
+      navigate("/chats")
     }
   };
   

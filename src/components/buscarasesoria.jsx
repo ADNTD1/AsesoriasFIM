@@ -16,7 +16,6 @@ const BuscarAsesorias = () => {
   const [nuevaCarrera, setNuevaCarrera] = useState("");
   const [nuevaMateria, setNuevaMateria] = useState("");
 
-  // Cargar solicitudes y carreras al iniciar
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem("usuario");
     if (usuarioGuardado) {
@@ -57,7 +56,10 @@ const BuscarAsesorias = () => {
   };
 
   const obtenerCarreras = async () => {
-    const { data, error } = await supabase.from("carrera").select("id_carrera, descripcion").order("descripcion");
+    const { data, error } = await supabase
+      .from("carrera")
+      .select("id_carrera, descripcion")
+      .order("descripcion");
     if (error) {
       console.error("Error obteniendo carreras:", error);
     } else {
@@ -66,7 +68,10 @@ const BuscarAsesorias = () => {
   };
 
   const obtenerMaterias = async (idCarrera = null, setMateriasCallback = setMaterias) => {
-    let query = supabase.from("materia").select("id_materia, descripcion").order("descripcion");
+    let query = supabase
+      .from("materia")
+      .select("id_materia, descripcion")
+      .order("descripcion");
 
     if (idCarrera) {
       query = query.eq("id_carrera", idCarrera);
@@ -139,7 +144,7 @@ const BuscarAsesorias = () => {
 
   return (
     <div>
-      {/* Filtro solo de materia */}
+      {/* Filtro */}
       <div style={{
         position: "absolute", top: "100px", left: "50%", transform: "translateX(-50%)",
         display: "flex", backgroundColor: "#ffffff", padding: "10px", borderRadius: "8px",
@@ -172,11 +177,25 @@ const BuscarAsesorias = () => {
           const carreramateria = `${nombrecarrera} - ${nombremateria}`;
           const content = `<div><div style="font-size: 0.85rem; color: gray; margin-bottom: 4px;">${carreramateria}</div><div>${solicitud.descripcion}</div></div>`;
 
-          return <Card key={solicitud.id_solicitud} title={nombreCompleto} content={content} date={new Date(solicitud.created_at).toLocaleDateString()} />;
+          return (
+            <Card
+              key={solicitud.id_solicitud}
+              id_solicitud={solicitud.id_solicitud}
+              title={nombreCompleto}
+              content={content}
+              date={new Date(solicitud.created_at).toLocaleDateString()}
+              onStatusChange={() =>
+                obtenerSolicitudes({
+                  id_carrera: carreraSeleccionada,
+                  id_materia: materiaSeleccionada,
+                })
+              }
+            />
+          );
         })}
       </div>
 
-      {/* Botón flotante + */}
+      {/* Botón flotante */}
       <button onClick={abrirModal} style={{
         position: "fixed", bottom: "30px", right: "30px", width: "60px", height: "60px",
         borderRadius: "50%", backgroundColor: "#1D3C6D", color: "white", fontSize: "36px",

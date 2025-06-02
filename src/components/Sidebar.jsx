@@ -83,8 +83,7 @@ const Sidebar = () => {
     "Mis Asesorías",
     "Mensajes",
     "Notificaciones",
-    "Perfil",
-    "Ayuda",  
+    "Perfil"  
   ];
 
   const handleItemClick = (item) => {

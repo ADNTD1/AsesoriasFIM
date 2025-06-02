@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { supabase } from "../server/Supabase/supabaseClient"; // Asegúrate de que la ruta sea correcta
 
-const Card = ({ title, content, date }) => {
+const Card = ({ id_solicitud, title, content, date }) => {
   const [esAsesor, setEsAsesor] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [showMensaje, setShowMensaje] = useState(false);
@@ -24,9 +25,22 @@ const Card = ({ title, content, date }) => {
     }
   };
 
-  const handleConfirmYes = () => {
+  const handleConfirmYes = async () => {
     setShowConfirm(false);
-    setMensajeTexto("Has aceptado la asesoría.");
+
+    const { error } = await supabase
+      .from("solicitud_asesoria")
+      .update({ estatus: false }) // Cambia a false o true según lo que quieras
+      .eq("id_solicitud", id_solicitud);
+
+    if (error) {
+      setMensajeTexto("Error al aceptar la asesoría. Intenta de nuevo.");
+      setMensajeError(true);
+    } else {
+      setMensajeTexto("Has aceptado la asesoría.");
+      setMensajeError(false);
+    }
+
     setShowMensaje(true);
   };
 
@@ -53,6 +67,8 @@ const Card = ({ title, content, date }) => {
           margin: 20px;
           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
           border: 1px solid #e0e0e0;
+          max-width: 350px;
+          word-wrap: break-word;
         }
 
         .card:hover {
@@ -62,20 +78,25 @@ const Card = ({ title, content, date }) => {
         .card__title {
           font-size: 1.25rem;
           margin-bottom: 10px;
+          font-weight: 600;
         }
 
         .card__content {
           font-size: 1rem;
           margin-bottom: 10px;
+          color: #555;
+          min-height: 50px;
         }
 
         .card__date {
           font-size: 0.875rem;
           color: #777;
+          text-align: right;
         }
 
         .card__arrow {
           margin-top: 10px;
+          text-align: right;
         }
 
         .modal-overlay {
@@ -129,6 +150,7 @@ const Card = ({ title, content, date }) => {
           border-radius: 4px;
           cursor: pointer;
           min-width: 80px;
+          transition: background-color 0.3s ease;
         }
 
         .modal button:hover {
@@ -170,7 +192,7 @@ const Card = ({ title, content, date }) => {
         </div>
       </div>
 
-      {/* Modal Confirmación para asesores */}
+      {/* Modal Confirmación */}
       {showConfirm && (
         <div className="modal-overlay">
           <div className="modal">

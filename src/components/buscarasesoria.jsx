@@ -18,9 +18,15 @@ const BuscarAsesorias = () => {
 
   // Cargar solicitudes y carreras al iniciar
   useEffect(() => {
-    obtenerSolicitudes();
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      setCarreraSeleccionada(usuario.id_carrera);
+      setNuevaCarrera(usuario.id_carrera);
+      obtenerSolicitudes({ id_carrera: usuario.id_carrera });
+      obtenerMaterias(usuario.id_carrera);
+    }
     obtenerCarreras();
-    obtenerMaterias();  // Carga todas las materias inicialmente
   }, []);
 
   const obtenerSolicitudes = async (filtros = {}) => {
@@ -75,28 +81,13 @@ const BuscarAsesorias = () => {
   };
 
   const manejarFiltro = (tipo, valor) => {
-    if (tipo === "carrera") {
-      setCarreraSeleccionada(valor);
-      obtenerMaterias(valor);  // Filtra materias por carrera seleccionada
-      setMateriaSeleccionada("");  // Reinicia selección de materia
-    } else if (tipo === "materia") {
+    if (tipo === "materia") {
       setMateriaSeleccionada(valor);
     }
 
-    const filtros = {};
-    const carreraVal = tipo === "carrera" ? valor : carreraSeleccionada;
-    const materiaVal = tipo === "materia" ? valor : materiaSeleccionada;
-
-    if (tipo === "carrera") {
-      if (valor) filtros.id_carrera = valor;
-    } else if (carreraSeleccionada) {
-      filtros.id_carrera = carreraSeleccionada;
-    }
-
-    if (tipo === "materia") {
-      if (valor) filtros.id_materia = valor;
-    } else if (materiaSeleccionada) {
-      filtros.id_materia = materiaSeleccionada;
+    const filtros = { id_carrera: carreraSeleccionada };
+    if (tipo === "materia" && valor) {
+      filtros.id_materia = valor;
     }
 
     obtenerSolicitudes(filtros);
@@ -104,9 +95,9 @@ const BuscarAsesorias = () => {
 
   const abrirModal = () => {
     setNuevaDescripcion("");
-    setNuevaCarrera("");
     setNuevaMateria("");
-    setMateriasModal([]);  // Vacía materias al abrir modal
+    setMateriasModal([]);
+    obtenerMaterias(nuevaCarrera, setMateriasModal);
     setMostrarModal(true);
   };
 
@@ -142,34 +133,24 @@ const BuscarAsesorias = () => {
       alert("Error al guardar la solicitud");
     } else {
       cerrarModal();
-      obtenerSolicitudes();
-    }
-  };
-
-  const manejarCambioCarreraModal = (valor) => {
-    setNuevaCarrera(valor);
-    setNuevaMateria("");
-    if (valor) {
-      obtenerMaterias(valor, setMateriasModal);
-    } else {
-      setMateriasModal([]);
+      obtenerSolicitudes({ id_carrera: nuevaCarrera });
     }
   };
 
   return (
     <div>
-      {/* Filtros */}
+      {/* Filtro solo de materia */}
       <div style={{
         position: "absolute", top: "100px", left: "50%", transform: "translateX(-50%)",
         display: "flex", backgroundColor: "#ffffff", padding: "10px", borderRadius: "8px",
         boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", alignItems: "center", gap: "10px"
       }}>
-        <select value={carreraSeleccionada} onChange={(e) => manejarFiltro("carrera", e.target.value)}
-          style={{ padding: "6px", borderRadius: "4px", border: "1px solid #ccc" }}>
-          <option value="">Todas las carreras</option>
-          {carreras.map((carrera) => (
-            <option key={carrera.id_carrera} value={carrera.id_carrera}>{carrera.descripcion}</option>
-          ))}
+        <select disabled value={carreraSeleccionada} style={{ padding: "6px", borderRadius: "4px", border: "1px solid #ccc", backgroundColor: "#f5f5f5" }}>
+          {carreras
+            .filter((c) => c.id_carrera === carreraSeleccionada)
+            .map((carrera) => (
+              <option key={carrera.id_carrera} value={carrera.id_carrera}>{carrera.descripcion}</option>
+            ))}
         </select>
 
         <select value={materiaSeleccionada} onChange={(e) => manejarFiltro("materia", e.target.value)}
@@ -182,9 +163,7 @@ const BuscarAsesorias = () => {
       </div>
 
       {/* Tarjetas */}
-      <div style={{
-        marginTop: "180px", padding: "0 20px", display: "flex", flexWrap: "wrap", gap: "20px"
-      }}>
+      <div style={{ marginTop: "180px", padding: "0 20px", display: "flex", flexWrap: "wrap", gap: "20px" }}>
         {solicitudes.map((solicitud) => {
           const usuario = solicitud.Usuario;
           const nombreCompleto = usuario ? `${usuario.nombre} ${usuario.ap1} ${usuario.ap2}` : "Sin nombre";
@@ -206,25 +185,19 @@ const BuscarAsesorias = () => {
 
       {/* Modal */}
       {mostrarModal && (
-        <div style={{
-          position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.3)",
-          display: "flex", justifyContent: "center", alignItems: "center"
-        }}>
-          <div style={{
-            backgroundColor: "white", padding: "20px", borderRadius: "8px",
-            width: "400px", boxShadow: "0px 2px 10px rgba(0,0,0,0.3)"
-          }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0,0,0,0.3)", display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ backgroundColor: "white", padding: "20px", borderRadius: "8px", width: "400px", boxShadow: "0px 2px 10px rgba(0,0,0,0.3)" }}>
             <h3>Nueva Solicitud</h3>
 
             <textarea placeholder="Descripción" value={nuevaDescripcion} onChange={(e) => setNuevaDescripcion(e.target.value)}
               style={{ width: "100%", height: "80px", marginBottom: "10px", padding: "6px" }} />
 
-            <select value={nuevaCarrera} onChange={(e) => manejarCambioCarreraModal(e.target.value)}
-              style={{ width: "100%", marginBottom: "10px", padding: "6px" }}>
-              <option value="">Selecciona una carrera</option>
-              {carreras.map((c) => (
-                <option key={c.id_carrera} value={c.id_carrera}>{c.descripcion}</option>
-              ))}
+            <select value={nuevaCarrera} disabled style={{ width: "100%", marginBottom: "10px", padding: "6px", backgroundColor: "#f5f5f5" }}>
+              {carreras
+                .filter((c) => c.id_carrera === nuevaCarrera)
+                .map((c) => (
+                  <option key={c.id_carrera} value={c.id_carrera}>{c.descripcion}</option>
+                ))}
             </select>
 
             <select value={nuevaMateria} onChange={(e) => setNuevaMateria(e.target.value)}

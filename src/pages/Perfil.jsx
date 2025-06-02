@@ -4,6 +4,7 @@ const Perfil = () => {
   const [userName, setUserName] = useState("");
   const [userBio, setUserBio] = useState("");
   const [userCarrera, setUserCarrera] = useState("");
+  const [esAsesor, setEsAsesor] = useState(false);
 
   useEffect(() => {
     // Simulamos obtener la información del usuario desde localStorage (o una base de datos)
@@ -13,10 +14,12 @@ const Perfil = () => {
       const fullName = `${usuario.nombre} ${usuario.ap1} ${usuario.ap2}`;
       const carrera = usuario.carrera || "Carrera no disponible";
       const bio = usuario.biografia || "Biografía no disponible";
+      const asesor = usuario.asesor || false;
 
       setUserName(fullName);
       setUserCarrera(carrera);
       setUserBio(bio);
+      setEsAsesor(asesor);
     }
   }, []);
 
@@ -33,7 +36,7 @@ const Perfil = () => {
   };
 
   const profilePictureStyle = {
-    backgroundColor: "#1D3C6D", // Usamos el mismo color de la inicial
+    backgroundColor: "#1D3C6D",
     color: "white",
     fontSize: "40px",
     width: "100px",
@@ -50,6 +53,16 @@ const Perfil = () => {
     fontSize: "24px",
     fontWeight: "600",
     color: "#1D3C6D",
+    marginBottom: "10px",
+  };
+
+  const asesorBadgeStyle = {
+    backgroundColor: "#007bff",
+    color: "white",
+    padding: "5px 10px",
+    borderRadius: "5px",
+    fontSize: "14px",
+    fontWeight: "600",
     marginBottom: "10px",
   };
 
@@ -70,13 +83,16 @@ const Perfil = () => {
 
   return (
     <div style={profileContainerStyle}>
-      {/* Foto de perfil (letra inicial) */}
+      {/* Foto de perfil */}
       <div style={profilePictureStyle}>
         {userName ? userName.charAt(0).toUpperCase() : "?"}
       </div>
 
       {/* Nombre del usuario */}
       <h2 style={titleStyle}>{userName || "Cargando..."}</h2>
+
+      {/* Cartel de asesor */}
+      {esAsesor && <div style={asesorBadgeStyle}>Asesor</div>}
 
       {/* Biografía */}
       <div>

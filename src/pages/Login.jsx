@@ -10,16 +10,16 @@ function Login() {
       {/* Navbar fija arriba */}
       <Navbar />
 
-      {/* Contenedor principal con login a la izquierda y animación a la derecha */}
+      {/* Contenedor principal con animación a la izquierda y login a la derecha */}
       <div className="flex items-center justify-between h-[calc(100vh-64px)] px-16">
-        {/* Contenedor del login */}
-        <div className="p-8 w-full max-w-md">
-          <LoginForm />
-        </div>
-
         {/* Contenedor de la animación Lottie */}
         <div className="w-full max-w-lg flex justify-center">
           <Lottie animationData={AnimLogin} loop={true} />
+        </div>
+
+        {/* Contenedor del login */}
+        <div className="p-8 w-full max-w-md">
+          <LoginForm />
         </div>
       </div>
     </div>

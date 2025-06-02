@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../../server/Supabase/supabaseClient";
+import { supabase } from "../server/Supabase/supabaseClient";
+
 
 function LoginConNIP() {
   const [numeroCuenta, setNumeroCuenta] = useState("");
